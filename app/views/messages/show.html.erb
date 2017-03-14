@@ -1,12 +1,12 @@
 <div class="col-md-10 col-md-offset-1">
   <div class="message-show">
-
-  <h3>Opening Post:</h3>
-	<h2><%= @message.title %></h2>
-  <p class="message-desc"><%= @message.description %></p></br>
-	<p class="message-posted-by">Message Created: <%= time_ago_in_words(@message.created_at) %> ago</p>
-  <p class="message-posted-by">Started By: <%= @message.user.email %></p><hr>
-  	
+    <div class="opening-message">  
+      <h3>Opening Post:</h3>
+    	<h2><%= @message.title %></h2>
+      <p class="message-desc"><%= @message.description %></p></br>
+    	<p class="message-posted-by">Message Created: <%= time_ago_in_words(@message.created_at) %> ago</p>
+      <p class="message-posted-by">Started By: <%= @message.user.email %></p>
+    </div>	
 
     <h3 class="comments-section-header">Comments: (<%= @message.comments.count%>)</h3>
     <p><%= render @message.comments %></p>
@@ -16,8 +16,13 @@
 
   	<div clas="links btn-group">
   	  <%= link_to "Back", root_path, class: "btn btn-default" %>
-  	  <%= link_to "Edit", edit_message_path(@message), class: "btn btn-primary" %> 
-  	  <%= link_to "Delete", message_path(@message), method: :delete, data: {confirm: "Do you really want to delete this message?" }, class: "btn btn-danger" %> 
+
+      <% if user_signed_in? %>
+        <% if @message.user_id == current_user.id %>
+      	  <%= link_to "Edit", edit_message_path(@message), class: "btn btn-primary" %> 
+      	  <%= link_to "Delete", message_path(@message), method: :delete, data: {confirm: "Do you really want to delete this message?" }, class: "btn btn-danger" %> 
+        <% end %>
+      <% end %>
   	</div>
   </div>
 </div>		
