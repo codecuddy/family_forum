@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   	@messages = Message.all.order("created_at DESC")
   end
 
-  def sho
+  def show
     
   end
 
@@ -39,6 +39,7 @@ class MessagesController < ApplicationController
     @message.destroy
     redirect_to root_path
   end
+
 
   private
 
